@@ -2,6 +2,7 @@ package com.upsjb.students.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.List;
 @Builder

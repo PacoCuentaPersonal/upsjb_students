@@ -1,10 +1,17 @@
 package com.upsjb.students.persistence.entity;
 
+import com.upsjb.students.StudentsApplication;
 import jakarta.persistence.*;
 import lombok.Builder;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
+@EntityListeners(AuditingEntityListener.class)
 @Builder
 @Entity
 @Table(name = "student_table")
@@ -14,16 +21,17 @@ public class Student {
     private Long id;
     @Column(length = 20)
     private String student_code;
-    private ZonedDateTime registration_date;
+    @CreatedDate
+    private LocalDateTime registration_date;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name ="id_faculty", nullable = false)
     private Faculty faculty_student;
 
 
-    public Student(Long id, String student_code, ZonedDateTime registration_date, Faculty faculty_student) {
+    public Student(Long id, String student_code, LocalDateTime time, Faculty faculty_student) {
+        this.registration_date=time;
         this.id = id;
         this.student_code = student_code;
-        this.registration_date = registration_date;
         this.faculty_student = faculty_student;
     }
 
@@ -46,11 +54,11 @@ public class Student {
         this.student_code = student_code;
     }
 
-    public ZonedDateTime getRegistration_date() {
+    public LocalDateTime getRegistration_date() {
         return registration_date;
     }
 
-    public void setRegistration_date(ZonedDateTime registration_date) {
+    public void setRegistration_date(LocalDateTime registration_date) {
         this.registration_date = registration_date;
     }
 

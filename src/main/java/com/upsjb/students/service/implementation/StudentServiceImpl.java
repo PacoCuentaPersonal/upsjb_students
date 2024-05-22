@@ -51,7 +51,12 @@ public class StudentServiceImpl  implements IStudentService {
     public StudentDTO addStudent(StudentDTO studentDTO) {
         ModelMapper mp= new ModelMapper();
         try {
-            this.studentDAO.saveUser(mp.map(studentDTO,Student.class));
+            System.out.println(studentDTO);
+            System.out.println(mp.map(studentDTO,Student.class));
+            Faculty fc=this.factultyDAO.getFacultyByName(studentDTO.getFaculty_name()).get();
+            Student mpstudent= mp.map(studentDTO,Student.class);
+            mpstudent.setFaculty_student(fc);
+            this.studentDAO.saveUser(mpstudent);
             return studentDTO;
         }
         catch (Exception e){
@@ -65,7 +70,7 @@ public class StudentServiceImpl  implements IStudentService {
         Optional<Student> studentOptional=this.studentDAO.getStudentById(id);
         if(studentOptional.isPresent()){
             Student student=studentOptional.get();
-            student.setStudent_code(studentDTO.getCode_student());
+            student.setStudent_code(studentDTO.getStudent_code());
             //logic to update faculty associated a student
             Optional<Faculty> facultyOptional=this.factultyDAO.getFacultyByName(studentDTO.getFaculty_name());
             Faculty faculty=facultyOptional.get();

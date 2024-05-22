@@ -1,5 +1,6 @@
 package com.upsjb.students.presentation.dto.v1;
 
+import jakarta.annotation.Nullable;
 import lombok.*;
 
 @AllArgsConstructor
@@ -8,7 +9,8 @@ import lombok.*;
 @Setter
 @ToString
 public class StudentDTO {
+    @Nullable
     private Long id;
-    private String code_student;
+    private String student_code;
     private String faculty_name;
 }
