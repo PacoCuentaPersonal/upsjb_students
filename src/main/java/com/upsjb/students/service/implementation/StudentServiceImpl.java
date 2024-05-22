@@ -51,8 +51,6 @@ public class StudentServiceImpl  implements IStudentService {
     public StudentDTO addStudent(StudentDTO studentDTO) {
         ModelMapper mp= new ModelMapper();
         try {
-            System.out.println(studentDTO);
-            System.out.println(mp.map(studentDTO,Student.class));
             Faculty fc=this.factultyDAO.getFacultyByName(studentDTO.getFaculty_name()).get();
             Student mpstudent= mp.map(studentDTO,Student.class);
             mpstudent.setFaculty_student(fc);
